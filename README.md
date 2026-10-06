@@ -15,12 +15,13 @@
 ## Структура проекта
 
 ```text
-python_course/
+python_task/
 │
 ├── problems/
-│   ├── 55_jump_game.py
-│   ├── 219_contains_duplicate_ii.py
-│   └── 345_reverse_vowels.py
+│   ├── __init__.py
+│   ├── jump_game_55.py
+│   ├── contains_duplicate_ii_219.py
+│   └── reverse_vowels_345.py
 │
 ├── screenshots/
 │   ├── task55.png
@@ -28,8 +29,6 @@ python_course/
 │   └── task345.png
 │
 ├── .gitignore
-├── .pre-commit-config.yaml
-├── pyproject.toml
 └── README.md
 ```
 
