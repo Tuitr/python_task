@@ -1,0 +1,62 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать код
+        uses: actions/checkout@v5
+
+      - name: Установить Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Установить зависимости
+        run: pip install pytest ruff
+
+      - name: Линтер
+        run: ruff check .
+
+      - name: Форматирование
+        run: ruff format --check .
+
+      - name: Тесты
+        run: python -m pytest -v
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Скачать код
+        uses: actions/checkout@v5
+
+      - name: Установить Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Собрать сайт
+        run: python scripts/build_site.py
+
+      - name: Загрузить сайт
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Опубликовать на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
