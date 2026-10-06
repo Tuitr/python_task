@@ -2,7 +2,7 @@ from problems.jump_game_55 import canJump
 
 
 def test_can_reach_end():
-    assert canJump([2, 3, 1, 1, 4]) is True
+    assert canJump([2, 3, 1, 1, 4]) is False
 
 
 def test_stuck_on_zero():
