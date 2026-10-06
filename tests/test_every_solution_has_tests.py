@@ -8,8 +8,6 @@ def test_every_solution_has_tests():
         p.stem for p in (ROOT / "problems").glob("*.py") if p.stem != "__init__"
     ]
     missing = [
-        name
-        for name in solutions
-        if not (ROOT / "tests" / f"test_{name}.py").exists()
+        name for name in solutions if not (ROOT / "tests" / f"test_{name}.py").exists()
     ]
     assert not missing, f"Нет тестов для: {missing}"
